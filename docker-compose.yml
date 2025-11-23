@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: collaborative-editor-db
+    environment:
+      POSTGRES_DB: collaborative_editor_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - collaborative-editor-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for session storage
+  redis:
+    image: redis:7-alpine
+    container_name: collaborative-editor-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - collaborative-editor-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: collaborative-editor-backend
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      CLIENT_URL: http://localhost:5173
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: collaborative_editor_dev
+      DB_SSL: false
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      JWT_REFRESH_SECRET: your-super-secret-refresh-key-change-this-in-production
+      JWT_EXPIRES_IN: 15m
+      JWT_REFRESH_EXPIRES_IN: 7d
+      BCRYPT_ROUNDS: 12
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - collaborative-editor-network
+    command: npm run dev
+
+  # Frontend Development Server
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: collaborative-editor-frontend
+    environment:
+      VITE_API_URL: http://localhost:3001
+      VITE_WS_URL: http://localhost:3001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - collaborative-editor-network
+    command: npm run dev
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  collaborative-editor-network:
+    driver: bridge
