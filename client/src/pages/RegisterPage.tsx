@@ -18,7 +18,7 @@ const RegisterPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterRequest>();
+  } = useForm<RegisterRequest & { terms: boolean }>();
 
   const password = watch('password');
 
