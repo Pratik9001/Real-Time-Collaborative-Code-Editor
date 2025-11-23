@@ -1,0 +1,170 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Production builds
+/dist
+/build
+.next
+.nuxt
+.out
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.backup
+
+# SSL Certificates
+ssl/*.pem
+ssl/*.key
+ssl/*.crt
+ssl/*.csr
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+.nyc_output/
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker volumes
+postgres_data/
+redis_data/
+nginx_logs/
+backups/
+
+# Backup files
+*.backup
+*.bak
+
+# Database backups
+backup_*.sql
+*.sql.gz
+
+# OpenSSL certificates
+*.csr
+*.pem
+*.key
+*.crt
+
+# Test results
+test-results/
+coverage/
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# Lock files (keep package-lock.json but ignore yarn.lock)
+yarn.lock
+
+# Local configuration
+config/local.js
+config/local.json
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Monitoring and performance
+*.prof
+*.heapsnapshot
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Kubernetes secrets
+secrets/
+*.secret
+
+# Application specific
+uploads/
+user_uploads/
+static_files/
