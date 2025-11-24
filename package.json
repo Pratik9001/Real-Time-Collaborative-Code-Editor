@@ -1,6 +1,7 @@
 {
   "name": "real-time-collaborative-code-editor",
   "version": "1.0.0",
+  "sharedb":"^3.0.6",
   "description": "A web application using WebSockets to allow multiple users to simultaneously edit the same document with real-time cursor synchronization",
   "main": "index.js",
   "scripts": {
