@@ -1,6 +1,7 @@
 {
   "name": "collaborative-editor-server",
   "version": "1.0.0",
+  "sharedb": "^3.0.6",
   "description": "Backend server for real-time collaborative code editor",
   "main": "dist/index.js",
   "scripts": {
